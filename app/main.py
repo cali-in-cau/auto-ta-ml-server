@@ -1,27 +1,31 @@
 from typing import Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
+
+from ml_model.preprocessing import parse_data, ohlc_to_ta_lib
 
 app = FastAPI()
 
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Optional[bool] = None
-
+class MLData(BaseModel):
+    info: dict
+    data: dict
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"message": "auto-ta-ml-server"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/ml/graph")
+def read_item(data: MLData):
+    res = {}
+    convert_csv_data = parse_data(data)
+    res['talib'] = ohlc_to_ta_lib(convert_csv_data)
 
 
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_price": item.price, "item_id": item_id}
+    return res
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8878)
