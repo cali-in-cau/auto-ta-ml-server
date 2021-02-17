@@ -25,6 +25,7 @@ def parse_data(data):
 
 def ohlc_to_ta_lib(data):
     ta_lib_dict = {'bull':[],'bear':[]}
+    #다른 형태의 api제공을 위해 가공
     ta_lib_dict_type2 = {}
 
     csv_string = data
@@ -43,7 +44,7 @@ def ohlc_to_ta_lib(data):
     #csv_data.to_csv('./sample.csv', sep=',', na_rep='NaN')
 
     for pattern in not_zero_column:
-        #print(pattern)
+
         csv_data_bull = tmp_data[tmp_data[pattern] > 0]
         csv_data_bear = tmp_data[tmp_data[pattern] < 0]
         #각 csv_data에서 양수 인거(보통 100)은 bullish를 나타내고 음수 인거(보통 -100)은 bearish를 나타낸다.
@@ -53,13 +54,26 @@ def ohlc_to_ta_lib(data):
 
         #print(date_bull)
         for date in date_bull:
-            ta_lib_dict['bull'].append((f'{pattern[3:]}_BULL', date))
-            data_to_image
+            pattern_name = f'{pattern[3:]}_BULL'
+            ta_lib_dict['bull'].append((pattern_name, date))
+
+            #다른 형태의 api제공을 위해 가공
+            if pattern_name not in ta_lib_dict_type2.keys():
+                ta_lib_dict_type2[pattern_name] = [(date, "bull")]
+            else:
+                ta_lib_dict_type2[pattern_name].append((date, "bull"))
 
         for date in date_bear:
-            ta_lib_dict['bear'].append((f'{pattern[3:]}_BEAR', date))
+            pattern_name = f'{pattern[3:]}_BEAR'
+            ta_lib_dict['bear'].append((pattern_name, date))
+
+            #다른 형태의 api제공을 위해 가공
+            if pattern_name not in ta_lib_dict_type2.keys():
+                ta_lib_dict_type2[pattern_name] = [(date, "bear")]
+            else:
+                ta_lib_dict_type2[pattern_name].append((date, "bear"))
     
-    return ta_lib_dict
+    return (ta_lib_dict, ta_lib_dict_type2)
 
 
 def data_to_image():

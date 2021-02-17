@@ -21,7 +21,7 @@ def read_root():
 def read_item(data: MLData):
     res = {}
     convert_csv_data = parse_data(data)
-    res['talib'] = ohlc_to_ta_lib(convert_csv_data)
+    res['talib'], res['talibv2'] = ohlc_to_ta_lib(convert_csv_data)
 
     return res
 
