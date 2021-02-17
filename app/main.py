@@ -17,12 +17,11 @@ def read_root():
     return {"message": "auto-ta-ml-server"}
 
 
-@app.post("/ml/graph")
+@app.post("/ml/predict")
 def read_item(data: MLData):
     res = {}
     convert_csv_data = parse_data(data)
     res['talib'] = ohlc_to_ta_lib(convert_csv_data)
-
 
     return res
 

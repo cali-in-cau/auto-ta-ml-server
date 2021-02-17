@@ -25,6 +25,7 @@ def parse_data(data):
 
 def ohlc_to_ta_lib(data):
     ta_lib_dict = {'bull':[],'bear':[]}
+    ta_lib_dict_type2 = {}
 
     csv_string = data
     csv_data = pd.read_csv(io.StringIO(csv_string), index_col=0, parse_dates=True)

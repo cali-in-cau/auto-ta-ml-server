@@ -1,2 +1,5 @@
+app/__pycache__/
+app/*.pyc
+*.pyc
 /server
 /ta-lib
