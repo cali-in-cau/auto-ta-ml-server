@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel
 
 from ml_model.preprocessing import parse_data, ohlc_to_ta_lib
+from ml_model.predict_lstm import predict_with_lstm
 
 app = FastAPI()
 
@@ -22,7 +23,7 @@ def read_item(data: MLData):
     res = {}
     convert_csv_data = parse_data(data)
     res['talib'], res['talibv2'] = ohlc_to_ta_lib(convert_csv_data)
-
+    res['value_prediction'] = predict_with_lstm(convert_csv_data)
     return res
 
 
