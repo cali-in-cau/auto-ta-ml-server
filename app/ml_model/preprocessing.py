@@ -36,7 +36,7 @@ def ohlc_to_ta_lib(data):
     for pattern in patterns_names:
         csv_data[pattern] = getattr(talib, pattern)(csv_data['Open'], csv_data['High'], csv_data['Low'], csv_data['Close'])
         tmp_data = csv_data
-    
+        
     #pattern이 없는 0칼럼들 다 제외
     zero_column = list(csv_data.columns[(csv_data == 0).all()])
     not_zero_column = list(set(patterns_names) - set(zero_column))
@@ -73,7 +73,7 @@ def ohlc_to_ta_lib(data):
             else:
                 ta_lib_dict_type2[pattern_name].append((date, "bear"))
     
-    return (ta_lib_dict, ta_lib_dict_type2)
+    return (ta_lib_dict, ta_lib_dict_type2, tmp_data)
 
 
 def data_to_image():

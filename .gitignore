@@ -3,3 +3,4 @@ app/*.pyc
 *.pyc
 /server
 /ta-lib
+*.png
