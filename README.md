@@ -4,6 +4,7 @@
 * we use fastAPI
 ## Prerequisites
     * python3 (3.8>=, tested on 3.8.5)
+    * tested on linux ubuntu 18.04
 ## Module Install
 * for make install
 ```sh
@@ -25,6 +26,15 @@ sudo make install
 
 #install python modules
 pip install -r requirements.txt
+```
+* we use git lfs for *.pkl file
+```sh
+#if your computer doesn't have git lfs
+#for linux
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt install git-lfs
+sudo git lfs install
+sudo git lfs pull
 ```
 ## Execute
 ```sh
