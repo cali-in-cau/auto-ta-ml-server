@@ -48,7 +48,8 @@ uvicorn main:app --host=0.0.0.0 --port=8888 &
 #see https://www.uvicorn.org/deployment/
 #use gunicorn
 ```
-## 
+## Issue
+* if you have problem of privielge change the privilege of app/ml_model/image_db : `chmod -R 777 image_db`
 
 ## TODO
 
